@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import goatImage from "../assets/meat/goat.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,7 +98,7 @@ const TikTokShowcase = () => {
             {/* Right visual */}
             <div className="relative min-h-[320px] overflow-hidden bg-[#171715]">
               <img
-                src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=1400&q=85"
+                src={goatImage}
                 alt="Halal MeatHub food"
                 className="absolute inset-0 h-full w-full object-cover opacity-70 transition duration-700 hover:scale-105"
               />

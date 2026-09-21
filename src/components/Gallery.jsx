@@ -1,4 +1,6 @@
-import { useLayoutEffect, useRef } from "react";
+import goatImage from "../assets/meat/goat.jpg";
+import beefImage from "../assets/meat/beef.jpg";
+import ramImage from "../assets/meat/ram.jpg";import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -6,23 +8,23 @@ gsap.registerPlugin(ScrollTrigger);
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1604503468506-a8da13d82791?auto=format&fit=crop&w=1600&q=90",
-    title: "Fresh Selection",
+    src: goatImage,
+    title: "Fresh Goat",
     size: "large",
   },
   {
-    src: "https://images.unsplash.com/photo-1603048297172-c92544798d5a?auto=format&fit=crop&w=1200&q=90",
-    title: "Quality Cuts",
-    size: "small",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=1400&q=90",
+    src: beefImage,
     title: "Premium Beef",
     size: "small",
   },
   {
-    src: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1600&q=90",
-    title: "Prepared Fresh",
+    src: ramImage,
+    title: "Fresh Ram",
+    size: "small",
+  },
+  {
+    src: goatImage,
+    title: "Quality Selection",
     size: "large",
   },
 ];
