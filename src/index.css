@@ -42,9 +42,11 @@ a {
 
 /* Premium interactions */
 
-html,
-body {
-  cursor: none;
+@media (pointer: fine) {
+  html,
+  body {
+    cursor: none;
+  }
 }
 
 @media (pointer: coarse) {

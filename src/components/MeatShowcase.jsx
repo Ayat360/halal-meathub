@@ -90,16 +90,16 @@ const MeatShowcase = () => {
         {/* Meat cards */}
         {meats.map((meat) => (
           <article
-            key={meat.name}
-            className="relative h-[78vh] w-[82vw] shrink-0 overflow-hidden md:w-[65vw] lg:w-[55vw]"
-          >
+  key={meat.name}
+  className="group relative h-[80vh] w-[84vw] shrink-0 overflow-hidden md:w-[68vw] lg:w-[58vw]"
+>
             <img
-              src={meat.image}
-              alt={`${meat.name} meat`}
-              className="absolute inset-0 h-full w-full object-cover"
-            />
+  src={meat.image}
+  alt={`${meat.name} meat`}
+  className="absolute inset-0 h-full w-full object-cover transition duration-[1600ms] ease-out group-hover:scale-105"
+/>
 
-            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 bg-black/20 transition duration-700 group-hover:bg-black/10" />
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/10" />
 
@@ -112,7 +112,7 @@ const MeatShowcase = () => {
                 Halal MeatHub
               </p>
 
-              <h3 className="text-7xl font-black uppercase leading-none tracking-[-0.06em] md:text-9xl">
+              <h3 className="text-6xl font-black uppercase leading-none tracking-[-0.07em] md:text-8xl lg:text-9xl">
                 {meat.name}
               </h3>
 

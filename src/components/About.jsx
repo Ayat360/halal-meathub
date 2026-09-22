@@ -26,11 +26,11 @@ const About = () => {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="bg-[#0b0b0a] px-6 py-32 md:px-12 lg:px-16"
-    >
+<section
+  ref={sectionRef}
+  id="about"
+  className="relative overflow-hidden bg-[#0b0b0a] px-6 py-36 md:px-12 lg:px-16"
+>
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           
@@ -39,7 +39,7 @@ const About = () => {
               About Halal MeatHub
             </p>
 
-            <h2 className="text-5xl font-black uppercase leading-[0.9] tracking-[-0.06em] md:text-7xl">
+            <h2 className="text-5xl font-black uppercase leading-[0.86] tracking-[-0.07em] md:text-7xl lg:text-8xl">
               Freshness
               <br />
               <span className="text-white/30">you can trust.</span>
@@ -47,7 +47,7 @@ const About = () => {
           </div>
 
           <div className="about-reveal max-w-2xl">
-            <p className="text-xl leading-relaxed text-white/75 md:text-3xl md:leading-relaxed">
+            <p className="text-xl leading-relaxed text-white/80 md:text-3xl md:leading-[1.35]">
               Halal MeatHub is built around one simple idea — quality meat
               should speak for itself.
             </p>
