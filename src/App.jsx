@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import WhatsAppFloat from "./components/WhatsAppFloat";
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
 import About from "./components/About";
@@ -39,6 +39,7 @@ function App() {
 
       <SmoothScroll />
       <CustomCursor />
+      <WhatsAppFloat />
 
       <main>
         <Hero />
