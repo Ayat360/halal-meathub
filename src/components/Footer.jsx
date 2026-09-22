@@ -24,13 +24,13 @@ const Footer = () => {
             TikTok — @halal_meathub0
           </a>
 
-          <p>
+         <p className="text-sm text-white/50">
   Website crafted by{" "}
   <a
     href="https://portfolio-v1-five-sooty.vercel.app/"
     target="_blank"
     rel="noopener noreferrer"
-    className="text-white/70 transition-colors duration-300 hover:text-[#c7a875]"
+    className="font-black text-white underline decoration-[#c7a875] underline-offset-4 transition-colors duration-300 hover:text-[#c7a875]"
   >
     PROXIMA A3
   </a>

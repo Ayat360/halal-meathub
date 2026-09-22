@@ -96,3 +96,90 @@ img {
     max-width: 100%;
   }
 }
+
+@keyframes logoIntro {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  35% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+}
+
+/* =========================================
+   HALAL MEATHUB LOGO INTRO
+========================================= */
+
+.logo-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #0b0b0a;
+
+  overflow: hidden;
+
+  animation: introExit 2.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.logo-intro-image {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+
+  animation: logoZoom 2.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes logoZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  18% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  55% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(14);
+  }
+}
+
+@keyframes introExit {
+  0% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

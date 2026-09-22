@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
 import About from "./components/About";
@@ -9,35 +11,43 @@ import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
 import CustomCursor from "./components/CustomCursor";
 
+import logo from "./assets/halal-meathub-logo.png";
+
 function App() {
+  const [introDone, setIntroDone] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIntroDone(true);
+    }, 2600);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
+      {/* LOGO INTRO */}
+      {!introDone && (
+        <div className="logo-intro">
+          <img
+            src={logo}
+            alt="Halal MeatHub"
+            className="logo-intro-image"
+          />
+        </div>
+      )}
+
       <SmoothScroll />
       <CustomCursor />
 
       <main>
-        {/* 01 — Brand introduction */}
         <Hero />
-
-        {/* 02 — Quick brand credibility */}
         <Stats />
-
-        {/* 03 — Who Halal MeatHub is */}
         <About />
-
-        {/* 04 — Main meat showcase */}
         <MeatShowcase />
-
-        {/* 05 — Real TikTok content */}
         <TikTokShowcase />
-
-        {/* 06 — Brand photography */}
         <Gallery />
-
-        {/* 07 — Find / connect */}
         <Contact />
-
-        {/* 08 — Closing */}
         <Footer />
       </main>
     </>

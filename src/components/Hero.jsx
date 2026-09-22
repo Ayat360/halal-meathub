@@ -140,21 +140,33 @@ const Hero = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-10 text-xs uppercase tracking-[0.2em] text-white/70 md:flex">
-          <a href="#about" className="transition hover:text-white">
-            About
-          </a>
+          <a
+  href="#about"
+  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+>
+  About
+</a>
 
-          <a href="#meat" className="transition hover:text-white">
-            Our Meat
-          </a>
+<a
+  href="#meat"
+  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+>
+  Our Meat
+</a>
 
-          <a href="#gallery" className="transition hover:text-white">
-            Gallery
-          </a>
+<a
+  href="#gallery"
+  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+>
+  Gallery
+</a>
 
-          <a href="#contact" className="transition hover:text-white">
-            Contact
-          </a>
+<a
+  href="#contact"
+  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+>
+  Contact
+</a>
         </div>
 
         {/* Desktop CTA */}
@@ -266,7 +278,7 @@ const Hero = () => {
 
           <h1
             ref={titleRef}
-            className="max-w-5xl text-[clamp(3.2rem,11vw,10rem)] font-black uppercase leading-[0.82] tracking-[-0.065em] md:text-[clamp(5rem,11vw,10rem)]"
+           className="max-w-4xl text-[3.4rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.8rem] md:text-[7rem] lg:text-[9rem]"
             style={{
               perspective: "1000px",
             }}
