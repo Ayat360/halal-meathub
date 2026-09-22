@@ -76,21 +76,25 @@ const Gallery = () => {
           </p>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-12 md:auto-rows-[180px]">
           {galleryImages.map((image, index) => (
             <div
               key={image.title}
               className={`gallery-item group relative overflow-hidden ${
-                image.size === "large"
-                  ? "md:row-span-2"
-                  : ""
-              }`}
+  index === 0
+    ? "md:col-span-7 md:row-span-3"
+    : index === 1
+      ? "md:col-span-5 md:row-span-2"
+      : index === 2
+        ? "md:col-span-5 md:row-span-2"
+        : "md:col-span-5 md:row-span-3"
+}`}
             >
               <div
                 className={`relative overflow-hidden ${
-                  image.size === "large"
-                    ? "h-[520px] md:h-[760px]"
-                    : "h-[360px] md:h-[420px]"
+                  index === 0 || index === 3
+  ? "h-[500px] md:h-full"
+  : "h-[350px] md:h-full"
                 }`}
               >
                 <img
