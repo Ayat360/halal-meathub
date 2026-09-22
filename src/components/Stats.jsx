@@ -43,7 +43,7 @@ const Stats = () => {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#0b0b0a] px-6 py-28 md:px-12 lg:px-16"
+      className="bg-[#0b0b0a] px-6 py-20 md:py-28 lg:px-16"
     >
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 max-w-xl">
@@ -64,7 +64,7 @@ const Stats = () => {
               key={stat.label}
               className="stat-item border-b border-white/15 py-10 md:border-b-0 md:border-r md:px-8 md:first:pl-0"
             >
-              <div className="text-6xl font-black tracking-[-0.06em] md:text-7xl">
+              <div className="text-5xl font-black tracking-[-0.06em] sm:text-6xl md:text-7xl">
                 {stat.number}
               </div>
 

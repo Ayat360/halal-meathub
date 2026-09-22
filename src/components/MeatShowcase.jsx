@@ -91,7 +91,7 @@ const MeatShowcase = () => {
         {meats.map((meat) => (
           <article
   key={meat.name}
-  className="group relative h-[80vh] w-[84vw] shrink-0 overflow-hidden md:w-[68vw] lg:w-[58vw]"
+  className="group relative h-[80vh] w-[88vw] shrink-0 overflow-hidden md:w-[68vw] lg:w-[58vw]"
 >
             <img
   src={meat.image}
@@ -112,7 +112,7 @@ const MeatShowcase = () => {
                 Halal MeatHub
               </p>
 
-              <h3 className="text-6xl font-black uppercase leading-none tracking-[-0.07em] md:text-8xl lg:text-9xl">
+              <h3 className="text-5xl font-black uppercase leading-none tracking-[-0.065em] sm:text-6xl md:text-8xl lg:text-9xl">
                 {meat.name}
               </h3>
 

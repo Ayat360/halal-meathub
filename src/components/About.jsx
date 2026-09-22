@@ -39,7 +39,7 @@ const About = () => {
               About Halal MeatHub
             </p>
 
-            <h2 className="text-5xl font-black uppercase leading-[0.86] tracking-[-0.07em] md:text-7xl lg:text-8xl">
+            <h2 className="text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-7xl lg:text-8xl">
               Freshness
               <br />
               <span className="text-white/30">you can trust.</span>
@@ -47,7 +47,7 @@ const About = () => {
           </div>
 
           <div className="about-reveal max-w-2xl">
-            <p className="text-xl leading-relaxed text-white/80 md:text-3xl md:leading-[1.35]">
+            <p className="text-lg leading-8 text-white/80 sm:text-xl md:text-3xl md:leading-[1.35]">
               Halal MeatHub is built around one simple idea — quality meat
               should speak for itself.
             </p>

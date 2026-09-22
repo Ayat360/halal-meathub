@@ -25,9 +25,16 @@ const Footer = () => {
           </a>
 
           <p>
-            Website crafted by{" "}
-            <span className="text-white/70">PROXIMA A3</span>
-          </p>
+  Website crafted by{" "}
+  <a
+    href="https://portfolio-v1-five-sooty.vercel.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-white/70 transition-colors duration-300 hover:text-[#c7a875]"
+  >
+    PROXIMA A3
+  </a>
+</p>
         </div>
       </div>
     </footer>

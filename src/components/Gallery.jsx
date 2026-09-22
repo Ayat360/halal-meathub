@@ -54,7 +54,7 @@ const Gallery = () => {
     <section
       ref={sectionRef}
       id="gallery"
-      className="bg-[#0b0b0a] px-6 py-32 md:px-12 lg:px-16"
+      className="bg-[#0b0b0a] px-6 py-24 md:py-32 lg:px-16"
     >
       <div className="mx-auto max-w-7xl">
         <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
@@ -63,7 +63,7 @@ const Gallery = () => {
               Visual Journal
             </p>
 
-            <h2 className="text-5xl font-black uppercase leading-[0.85] tracking-[-0.06em] md:text-8xl">
+            <h2 className="text-4xl sm:text-5xl font-black uppercase leading-[0.85] tracking-[-0.06em] md:text-8xl">
               Inside
               <br />
               <span className="text-white/30">The Hub.</span>

@@ -54,7 +54,7 @@ const TikTokShowcase = () => {
               Follow The Journey
             </p>
 
-            <h2 className="text-5xl font-black uppercase leading-[0.85] tracking-[-0.06em] md:text-8xl">
+            <h2 className="text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-8xl">
               From The
               <br />
               <span className="text-white/30">TikTok.</span>

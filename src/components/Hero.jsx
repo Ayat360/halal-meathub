@@ -266,7 +266,7 @@ const Hero = () => {
 
           <h1
             ref={titleRef}
-            className="max-w-5xl text-[clamp(4rem,11vw,10rem)] font-black uppercase leading-[0.8] tracking-[-0.07em]"
+            className="max-w-5xl text-[clamp(3.2rem,11vw,10rem)] font-black uppercase leading-[0.82] tracking-[-0.065em] md:text-[clamp(5rem,11vw,10rem)]"
             style={{
               perspective: "1000px",
             }}

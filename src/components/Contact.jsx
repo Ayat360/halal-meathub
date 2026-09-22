@@ -37,7 +37,7 @@ const Contact = () => {
             Find The Hub
           </p>
 
-          <h2 className="max-w-6xl text-[clamp(4rem,11vw,10rem)] font-black uppercase leading-[0.78] tracking-[-0.08em]">
+          <h2 className="max-w-6xl text-[clamp(3.5rem,13vw,10rem)] font-black uppercase leading-[0.78] tracking-[-0.08em]">
             Come
             <br />
             <span className="text-white/30">Through.</span>
