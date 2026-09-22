@@ -130,140 +130,313 @@ const Hero = () => {
         className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between border-b border-transparent px-6 py-7 transition-all duration-500 md:px-12 lg:px-16"
       >
         {/* Logo */}
-        <a href="#" className="flex items-center">
-  <img
-    src={logo}
-    alt="Halal MeatHub"
-    className="h-10 w-auto object-contain md:h-12"
-  />
-</a>
+        <a href="#" className="flex shrink-0 items-center">
+          <img
+            src={logo}
+            alt="Halal MeatHub"
+            className="h-10 w-auto object-contain sm:h-14"
+          />
+        </a>
 
         {/* Desktop Navigation */}
         <div className="hidden items-center gap-10 text-xs uppercase tracking-[0.2em] text-white/70 md:flex">
           <a
-  href="#about"
-  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
->
-  About
-</a>
+            href="#about"
+            className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+          >
+            About
+          </a>
 
-<a
-  href="#meat"
-  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
->
-  Our Meat
-</a>
+          <a
+            href="#meat"
+            className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+          >
+            Our Meat
+          </a>
 
-<a
-  href="#gallery"
-  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
->
-  Gallery
-</a>
+          <a
+            href="#gallery"
+            className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+          >
+            Gallery
+          </a>
 
-<a
-  href="#contact"
-  className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
->
-  Contact
-</a>
+          <a
+            href="#contact"
+            className="font-bold uppercase tracking-[0.18em] transition-colors duration-300 hover:text-[#c7a875]"
+          >
+            Contact
+          </a>
         </div>
 
-        {/* Desktop CTA */}
-        <a
-          href="#contact"
-          className="hidden border border-white/30 px-5 py-3 text-[10px] uppercase tracking-[0.2em] transition hover:bg-white hover:text-black md:inline-flex"
-        >
-          Visit Us
-        </a>
+        {/* Right Side */}
+        <div className="flex items-center gap-3">
+          {/* Desktop Visit Us */}
+          <a
+            href="#contact"
+            className="hidden border border-white/20 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:border-[#c7a875] hover:text-[#c7a875] md:block"
+          >
+            Visit Us
+          </a>
 
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          className="flex items-center gap-3 text-[10px] uppercase tracking-[0.25em] md:hidden"
-          onClick={() => {
-            document
-              .getElementById("mobile-menu")
-              ?.classList.toggle("translate-y-0");
+         {/* Mobile Menu Button */}
+<button
+  type="button"
+  onClick={() => {
+    document
+      .getElementById("mobile-menu")
+      ?.classList.toggle("pointer-events-none");
 
-            document
-              .getElementById("mobile-menu")
-              ?.classList.toggle("-translate-y-full");
-          }}
-        >
-          Menu
-          <span className="text-lg">☰</span>
-        </button>
+    document
+      .getElementById("mobile-menu")
+      ?.classList.toggle("opacity-0");
+
+    document
+      .getElementById("mobile-menu")
+      ?.classList.toggle("scale-0");
+
+    document
+      .getElementById("mobile-menu")
+      ?.classList.toggle("scale-100");
+  }}
+  className="relative z-[70] flex items-center gap-3 border border-white/20 px-4 py-3 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-300 hover:border-[#c7a875] hover:text-[#c7a875] md:hidden"
+>
+  Menu
+  <span className="text-sm">+</span>
+</button>
+        </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Premium Circular Mobile Menu */}
+<div
+  id="mobile-menu"
+  className="pointer-events-none fixed inset-0 z-[60] scale-0 opacity-0 transition-all duration-500 ease-out md:hidden"
+>
+  {/* Dark cinematic backdrop */}
+  <div className="absolute inset-0 bg-[#080807]/95 backdrop-blur-sm" />
+
+  {/* Circular navigation */}
+  <div className="absolute left-1/2 top-1/2 h-[320px] w-[320px] -translate-x-1/2 -translate-y-1/2">
+    
+    {/* Outer circle */}
+    <div className="absolute inset-0 rounded-full border border-white/10" />
+
+    {/* Decorative rings */}
+    <div className="absolute inset-6 rounded-full border border-[#c7a875]/10" />
+    <div className="absolute inset-12 rounded-full border border-white/5" />
+
+    {/* Center */}
+    <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#c7a875]/40 bg-[#11110f] shadow-[0_0_60px_rgba(199,168,117,0.12)]">
+      <div className="text-center">
+        <span className="block text-[8px] font-bold uppercase tracking-[0.3em] text-white/40">
+          Halal
+        </span>
+        <span className="mt-1 block text-[10px] font-black uppercase tracking-[0.2em] text-[#c7a875]">
+          MeatHub
+        </span>
+      </div>
+    </div>
+
+    {/* ABOUT */}
+    <a
+      href="#about"
+      onClick={() => {
+        document
+          .getElementById("mobile-menu")
+          ?.classList.add("pointer-events-none", "opacity-0", "scale-0");
+        document
+          .getElementById("mobile-menu")
+          ?.classList.remove("scale-100");
+      }}
+      className="group absolute left-1/2 top-[-10px] flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full border border-white/20 bg-[#11110f] text-center transition-all duration-500 hover:border-[#c7a875] hover:scale-110"
+    >
+      <span className="text-[9px] font-black uppercase tracking-[0.15em] group-hover:text-[#c7a875]">
+        About
+      </span>
+    </a>
+
+    {/* GALLERY */}
+    <a
+      href="#gallery"
+      onClick={() => {
+        document
+          .getElementById("mobile-menu")
+          ?.classList.add("pointer-events-none", "opacity-0", "scale-0");
+        document
+          .getElementById("mobile-menu")
+          ?.classList.remove("scale-100");
+      }}
+      className="group absolute right-[-8px] top-1/2 flex h-20 w-20 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#11110f] text-center transition-all duration-500 hover:border-[#c7a875] hover:scale-110"
+    >
+      <span className="text-[9px] font-black uppercase tracking-[0.15em] group-hover:text-[#c7a875]">
+        Gallery
+      </span>
+    </a>
+
+    {/* CONTACT */}
+    <a
+      href="#contact"
+      onClick={() => {
+        document
+          .getElementById("mobile-menu")
+          ?.classList.add("pointer-events-none", "opacity-0", "scale-0");
+        document
+          .getElementById("mobile-menu")
+          ?.classList.remove("scale-100");
+      }}
+      className="group absolute bottom-[-10px] left-1/2 flex h-20 w-20 -translate-x-1/2 items-center justify-center rounded-full border border-white/20 bg-[#11110f] text-center transition-all duration-500 hover:border-[#c7a875] hover:scale-110"
+    >
+      <span className="text-[9px] font-black uppercase tracking-[0.15em] group-hover:text-[#c7a875]">
+        Contact
+      </span>
+    </a>
+
+    {/* OUR MEAT */}
+    <a
+      href="#meat"
+      onClick={() => {
+        document
+          .getElementById("mobile-menu")
+          ?.classList.add("pointer-events-none", "opacity-0", "scale-0");
+        document
+          .getElementById("mobile-menu")
+          ?.classList.remove("scale-100");
+      }}
+      className="group absolute left-[-8px] top-1/2 flex h-20 w-20 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-[#11110f] text-center transition-all duration-500 hover:border-[#c7a875] hover:scale-110"
+    >
+      <span className="text-[9px] font-black uppercase tracking-[0.15em] group-hover:text-[#c7a875]">
+        Our Meat
+      </span>
+    </a>
+
+    {/* Close */}
+    <button
+      type="button"
+      onClick={() => {
+        document
+          .getElementById("mobile-menu")
+          ?.classList.add("pointer-events-none", "opacity-0", "scale-0");
+
+        document
+          .getElementById("mobile-menu")
+          ?.classList.remove("scale-100");
+      }}
+      className="absolute left-1/2 top-1/2 z-10 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center text-xl font-light text-white/50 transition-colors hover:text-[#c7a875]"
+    >
+      ×
+    </button>
+  </div>
+
+  {/* Bottom label */}
+  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-center">
+    <p className="text-[8px] uppercase tracking-[0.4em] text-white/30">
+      Fresh • Halal • Quality
+    </p>
+  </div>
+</div>
+
+      {/* Premium Mobile Menu */}
       <div
         id="mobile-menu"
-        className="fixed inset-0 z-40 flex -translate-y-full flex-col items-center justify-center gap-8 bg-[#0b0b0a] transition-transform duration-500 md:hidden"
+        className="fixed inset-y-0 right-0 z-[60] flex w-[88%] max-w-sm translate-x-full flex-col bg-[#11110f] px-8 py-8 shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] md:hidden"
       >
-        <a
-          href="#about"
-          className="text-3xl font-black uppercase"
-          onClick={() => {
-            document
-              .getElementById("mobile-menu")
-              ?.classList.add("-translate-y-full");
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-white/10 pb-6">
+          <span className="text-xs font-black uppercase tracking-[0.25em] text-white/50">
+            Navigation
+          </span>
 
-            document
-              .getElementById("mobile-menu")
-              ?.classList.remove("translate-y-0");
-          }}
-        >
-          About
-        </a>
+          <button
+            type="button"
+            onClick={() => {
+              document
+                .getElementById("mobile-menu")
+                ?.classList.add("translate-x-full");
 
-        <a
-          href="#meat"
-          className="text-3xl font-black uppercase"
-          onClick={() => {
-            document
-              .getElementById("mobile-menu")
-              ?.classList.add("-translate-y-full");
+              document
+                .getElementById("mobile-menu")
+                ?.classList.remove("translate-x-0");
+            }}
+            className="text-3xl font-light text-white transition-colors hover:text-[#c7a875]"
+            aria-label="Close menu"
+          >
+            ×
+          </button>
+        </div>
 
-            document
-              .getElementById("mobile-menu")
-              ?.classList.remove("translate-y-0");
-          }}
-        >
-          Our Meat
-        </a>
+        {/* Navigation Links */}
+        <div className="flex flex-1 flex-col justify-center">
+          <a
+            href="#about"
+            onClick={() => {
+              document
+                .getElementById("mobile-menu")
+                ?.classList.add("translate-x-full");
 
-        <a
-          href="#gallery"
-          className="text-3xl font-black uppercase"
-          onClick={() => {
-            document
-              .getElementById("mobile-menu")
-              ?.classList.add("-translate-y-full");
+              document
+                .getElementById("mobile-menu")
+                ?.classList.remove("translate-x-0");
+            }}
+            className="border-b border-white/10 py-6 text-3xl font-black uppercase tracking-[-0.04em] transition-colors hover:text-[#c7a875]"
+          >
+            About
+          </a>
 
-            document
-              .getElementById("mobile-menu")
-              ?.classList.remove("translate-y-0");
-          }}
-        >
-          Gallery
-        </a>
+          <a
+            href="#meat"
+            onClick={() => {
+              document
+                .getElementById("mobile-menu")
+                ?.classList.add("translate-x-full");
 
-        <a
-          href="#contact"
-          className="text-3xl font-black uppercase"
-          onClick={() => {
-            document
-              .getElementById("mobile-menu")
-              ?.classList.add("-translate-y-full");
+              document
+                .getElementById("mobile-menu")
+                ?.classList.remove("translate-x-0");
+            }}
+            className="border-b border-white/10 py-6 text-3xl font-black uppercase tracking-[-0.04em] transition-colors hover:text-[#c7a875]"
+          >
+            Our Meat
+          </a>
 
-            document
-              .getElementById("mobile-menu")
-              ?.classList.remove("translate-y-0");
-          }}
-        >
-          Contact
-        </a>
+          <a
+            href="#gallery"
+            onClick={() => {
+              document
+                .getElementById("mobile-menu")
+                ?.classList.add("translate-x-full");
+
+              document
+                .getElementById("mobile-menu")
+                ?.classList.remove("translate-x-0");
+            }}
+            className="border-b border-white/10 py-6 text-3xl font-black uppercase tracking-[-0.04em] transition-colors hover:text-[#c7a875]"
+          >
+            Gallery
+          </a>
+
+          <a
+            href="#contact"
+            onClick={() => {
+              document
+                .getElementById("mobile-menu")
+                ?.classList.add("translate-x-full");
+
+              document
+                .getElementById("mobile-menu")
+                ?.classList.remove("translate-x-0");
+            }}
+            className="border-b border-white/10 py-6 text-3xl font-black uppercase tracking-[-0.04em] transition-colors hover:text-[#c7a875]"
+          >
+            Contact
+          </a>
+        </div>
+
+        {/* Bottom Brand Line */}
+        <div className="border-t border-white/10 pt-6">
+          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+            Fresh • Halal • Quality
+          </p>
+        </div>
       </div>
 
       {/* Hero content */}
@@ -278,7 +451,7 @@ const Hero = () => {
 
           <h1
             ref={titleRef}
-           className="max-w-4xl text-[3.4rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.8rem] md:text-[7rem] lg:text-[9rem]"
+            className="max-w-4xl text-[3.4rem] font-black uppercase leading-[0.88] tracking-[-0.055em] sm:text-[4.8rem] md:text-[7rem] lg:text-[9rem]"
             style={{
               perspective: "1000px",
             }}
