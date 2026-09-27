@@ -32,12 +32,24 @@ function Hero() {
           <nav className="hidden items-center gap-10 lg:flex">
             {navLinks.map((link) => (
               <a
-                key={link.label}
-                href={link.href}
-                className="text-[15px] font-medium text-white/75 transition hover:text-white"
-              >
-                {link.label}
-              </a>
+  key={link.label}
+  href={link.href}
+  onClick={(e) => {
+    e.preventDefault();
+
+    const target = document.querySelector(link.href);
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }}
+  className="text-[15px] font-medium text-white/75 transition hover:text-white"
+>
+  {link.label}
+</a>
             ))}
           </nav>
 
@@ -92,7 +104,19 @@ function Hero() {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setMenuOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMenuOpen(false);
+
+                  const target = document.querySelector(link.href);
+
+                  if (target) {
+                    target.scrollIntoView({
+                      behavior: "smooth",
+                      block: "start",
+                    });
+                  }
+                }}
                 className="flex items-center justify-between border-b border-white/10 py-6 text-2xl font-semibold"
               >
                 <span>{link.label}</span>

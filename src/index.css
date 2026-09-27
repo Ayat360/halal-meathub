@@ -105,3 +105,11 @@ img {
     visibility: hidden;
   }
 }
+
+/* Navbar anchor positioning */
+#today,
+#meat,
+#hub,
+#tiktok {
+  scroll-margin-top: 100px;
+}

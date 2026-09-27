@@ -4,6 +4,7 @@ import AdminDashboard from "./admin/AdminDashboard";
 import WhatsAppFloat from "./components/WhatsAppFloat";
 
 import Hero from "./components/Hero";
+import TodayAtHub from "./components/TodayAtHub";
 import Stats from "./components/Stats";
 import MeatShowcase from "./components/MeatShowcase";
 import About from "./components/About";
@@ -52,6 +53,7 @@ function App() {
 
       <main>
         <Hero />
+        <TodayAtHub />
         <Stats />
         <MeatShowcase />
         <About />
