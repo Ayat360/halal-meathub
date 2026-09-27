@@ -14,9 +14,9 @@ function Hero() {
   ];
 
   return (
-    <section className="bg-[#111111] text-white">
+    <section className="bg-[#111111] pt-[88px] text-white">
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#111111]/95 backdrop-blur-sm">
+      <header className="fixed left-0 top-0 z-[90] w-full border-b border-white/10 bg-[#111111]/95 backdrop-blur-sm">
         <div className="mx-auto flex h-[88px] max-w-[1500px] items-center justify-between px-6 lg:px-12">
           
           {/* LOGO */}
