@@ -1,50 +1,59 @@
-import goatImage from "../assets/meat/goat.jpg";
-import beefImage from "../assets/meat/beef.jpg";
-import ramImage from "../assets/meat/ram.jpg";import { useLayoutEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import goatImage from "../assets/meat/goat.jpg";
+import beefImage from "../assets/meat/beef.jpg";
+import ramImage from "../assets/meat/ram.jpg";
+
 gsap.registerPlugin(ScrollTrigger);
 
-const galleryImages = [
-  {
-    src: goatImage,
-    title: "Fresh Goat",
-    size: "large",
-  },
-  {
-    src: beefImage,
-    title: "Premium Beef",
-    size: "small",
-  },
-  {
-    src: ramImage,
-    title: "Fresh Ram",
-    size: "small",
-  },
-  {
-    src: goatImage,
-    title: "Quality Selection",
-    size: "large",
-  },
-];
-
-const Gallery = () => {
+function Gallery() {
   const sectionRef = useRef(null);
 
-  useLayoutEffect(() => {
+  const images = [
+    {
+      src: goatImage,
+      title: "Fresh Goat",
+      size: "large",
+    },
+    {
+      src: beefImage,
+      title: "Fresh Beef",
+      size: "small",
+    },
+    {
+      src: ramImage,
+      title: "Fresh Ram",
+      size: "small",
+    },
+    {
+      src: beefImage,
+      title: "Quality Selection",
+      size: "wide",
+    },
+  ];
+
+  useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from(".gallery-item", {
-        y: 100,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
+      gsap.fromTo(
+        ".gallery-item",
+        {
+          y: 20,
+          opacity: 0,
         },
-      });
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+          },
+        }
+      );
     }, sectionRef);
 
     return () => ctx.revert();
@@ -52,68 +61,57 @@ const Gallery = () => {
 
   return (
     <section
-      ref={sectionRef}
       id="gallery"
-      className="bg-[#0b0b0a] px-6 py-24 md:py-32 lg:px-16"
+      ref={sectionRef}
+      className="bg-[#0b0b0a] text-white"
     >
-      <div className="mx-auto max-w-7xl">
-        <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
+      <div className="mx-auto max-w-[1600px] px-5 py-16 sm:px-8 sm:py-20 lg:px-12 lg:py-24">
+        {/* HEADER */}
+        <div className="mb-8 flex items-end justify-between border-b border-white/10 pb-5">
           <div>
-            <p className="mb-5 text-[10px] uppercase tracking-[0.35em] text-[#c7a875]">
-              Visual Journal
+            <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#c7a875]">
+              The Hub
             </p>
 
-            <h2 className="text-4xl sm:text-5xl font-black uppercase leading-[0.85] tracking-[-0.06em] md:text-8xl">
-              Inside
-              <br />
-              <span className="text-white/30">The Hub.</span>
+            <h2 className="mt-2 text-3xl font-black uppercase tracking-[-0.04em] sm:text-4xl">
+              Fresh in view.
             </h2>
           </div>
 
-          <p className="max-w-sm text-sm leading-7 text-white/40">
-            A glimpse into the freshness, preparation and quality behind
-            Halal MeatHub.
+          <p className="hidden max-w-xs text-right text-xs leading-5 text-white/35 sm:block">
+            A look at the meat and the work behind every sharing.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-12 md:auto-rows-[180px]">
-          {galleryImages.map((image, index) => (
+        {/* GALLERY */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          {images.map((image, index) => (
             <div
-              key={image.title}
+              key={`${image.title}-${index}`}
               className={`gallery-item group relative overflow-hidden ${
-  index === 0
-    ? "md:col-span-7 md:row-span-3"
-    : index === 1
-      ? "md:col-span-5 md:row-span-2"
-      : index === 2
-        ? "md:col-span-5 md:row-span-2"
-        : "md:col-span-5 md:row-span-3"
-}`}
+                image.size === "large"
+                  ? "col-span-2 row-span-2 h-[430px] sm:h-[520px]"
+                  : image.size === "wide"
+                    ? "col-span-2 h-[210px] sm:h-[250px]"
+                    : "h-[210px] sm:h-[250px]"
+              }`}
             >
-              <div
-                className={`relative overflow-hidden ${
-                  index === 0 || index === 3
-  ? "h-[500px] md:h-full"
-  : "h-[350px] md:h-full"
-                }`}
-              >
-                <img
-                  src={image.src}
-                  alt={image.title}
-                  className="h-full w-full object-cover transition duration-[1200ms] ease-out group-hover:scale-105"
-                />
+              <img
+                src={image.src}
+                alt={image.title}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-80" />
 
-                <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8">
-                  <span className="text-[9px] uppercase tracking-[0.3em] text-white/50">
-                    0{index + 1}
-                  </span>
+              <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">
+                <p className="text-xs font-black uppercase tracking-[0.12em]">
+                  {image.title}
+                </p>
 
-                  <h3 className="mt-2 text-2xl font-bold uppercase tracking-tight md:text-3xl">
-                    {image.title}
-                  </h3>
-                </div>
+                <span className="text-[9px] font-black text-white/45">
+                  0{index + 1}
+                </span>
               </div>
             </div>
           ))}
@@ -121,6 +119,6 @@ const Gallery = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Gallery;

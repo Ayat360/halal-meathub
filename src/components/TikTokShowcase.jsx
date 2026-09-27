@@ -1,81 +1,68 @@
-import { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const videos = [
-  {
-    id: "7687880272934604040",
-    title: "Fresh Selection",
-  },
-  {
-    id: "7686129265795992840",
-    title: "Behind The Hub",
-  },
-  {
-    id: "7683533693570338056",
-    title: "Halal Quality",
-  },
-];
-
-const TikTokShowcase = () => {
-  const sectionRef = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".tiktok-reveal", {
-        y: 80,
-        opacity: 0,
-        duration: 1,
-        stagger: 0.12,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+function TikTokShowcase() {
+  const videos = [
+    {
+      id: "7687880272934604040",
+      title: "Fresh Selection",
+    },
+    {
+      id: "7686129265795992840",
+      title: "Behind The Hub",
+    },
+    {
+      id: "7683533693570338056",
+      title: "Halal Quality",
+    },
+  ];
 
   return (
     <section
-      ref={sectionRef}
-      className="bg-[#11110f] px-6 py-32 md:px-12 lg:px-16"
+      id="tiktok"
+      className="bg-[#171717] px-6 py-20 text-white lg:px-12 lg:py-28"
     >
-      <div className="mx-auto max-w-7xl">
-
-        {/* Heading */}
-        <div className="mb-16 flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <div className="tiktok-reveal">
-            <p className="mb-5 text-[10px] uppercase tracking-[0.35em] text-[#c7a875]">
-              Follow The Journey
+      <div className="mx-auto max-w-[1500px]">
+        {/* HEADER */}
+        <div className="grid gap-8 border-b border-white/10 pb-10 lg:grid-cols-[1fr_0.7fr] lg:items-end">
+          <div>
+            <p className="mb-4 text-sm font-semibold text-[#c99a5b]">
+              FOLLOW THE HUB
             </p>
 
-            <h2 className="text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-8xl">
-              From The
+            <h2 className="max-w-[800px] text-4xl font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl lg:text-7xl">
+              See the sharing
               <br />
-              <span className="text-white/30">TikTok.</span>
+              in real life.
             </h2>
           </div>
 
-          <p className="tiktok-reveal max-w-sm text-sm leading-7 text-white/45">
-            Real moments from Halal MeatHub. Fresh cuts, preparation,
-            behind-the-scenes and life at the Hub.
-          </p>
+          <div className="lg:ml-auto lg:max-w-[420px]">
+            <p className="text-base leading-7 text-white/50">
+              Our TikTok is where the latest meat-sharing activity
+              happens. Watch what is happening at the Hub and stay
+              connected with the next sharing.
+            </p>
+
+            <a
+              href="https://www.tiktok.com/@halal_meathub0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-3 border border-white/15 px-5 py-3 text-sm font-semibold transition hover:bg-white hover:text-black"
+            >
+              Visit our TikTok
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
         </div>
 
-        {/* TikTok Videos */}
-        <div className="grid gap-6 md:grid-cols-3">
+        {/* VIDEOS */}
+        <div className="mt-10 grid gap-5 md:grid-cols-3">
           {videos.map((video, index) => (
-            <div
+            <article
               key={video.id}
-              className="tiktok-reveal group overflow-hidden bg-black"
+              className="overflow-hidden bg-[#222220]"
             >
-              {/* Video */}
-              <div className="relative aspect-[9/16] w-full overflow-hidden">
+              <div className="relative aspect-[9/16] bg-black">
                 <iframe
                   src={`https://www.tiktok.com/player/v1/${video.id}?autoplay=0&loop=1&description=1&music_info=1&controls=1`}
                   className="absolute inset-0 h-full w-full"
@@ -86,57 +73,27 @@ const TikTokShowcase = () => {
                 />
               </div>
 
-              {/* Video label */}
               <div className="flex items-center justify-between border-t border-white/10 px-5 py-5">
                 <div>
-                  <p className="text-[9px] uppercase tracking-[0.3em] text-[#c7a875]">
-                    0{index + 1} / TikTok
+                  <p className="text-sm font-semibold">
+                    {video.title}
                   </p>
 
-                  <h3 className="mt-2 text-sm font-bold uppercase tracking-wide">
-                    {video.title}
-                  </h3>
+                  <p className="mt-1 text-xs text-white/40">
+                    @halal_meathub0
+                  </p>
                 </div>
 
-                <a
-                  href={`https://www.tiktok.com/@halal_meathub0/video/${video.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lg text-white/40 transition hover:text-white"
-                  aria-label={`Open ${video.title} on TikTok`}
-                >
-                  ↗
-                </a>
+                <span className="text-xs font-semibold text-[#c99a5b]">
+                  TikTok
+                </span>
               </div>
-            </div>
+            </article>
           ))}
         </div>
-
-        {/* Profile CTA */}
-        <div className="tiktok-reveal mt-10 flex flex-col justify-between gap-6 border-t border-white/10 pt-8 md:flex-row md:items-center">
-          <div>
-            <p className="text-[9px] uppercase tracking-[0.3em] text-white/30">
-              Official TikTok
-            </p>
-
-            <p className="mt-2 text-lg font-medium">
-              @halal_meathub0
-            </p>
-          </div>
-
-          <a
-            href="https://www.tiktok.com/@halal_meathub0"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-white/20 px-7 py-4 text-[10px] uppercase tracking-[0.25em] transition duration-500 hover:bg-white hover:text-black"
-          >
-            Follow The Hub ↗
-          </a>
-        </div>
-
       </div>
     </section>
   );
-};
+}
 
 export default TikTokShowcase;

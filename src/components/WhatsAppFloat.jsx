@@ -1,23 +1,15 @@
 import { MessageCircle } from "lucide-react";
 
 function WhatsAppFloat() {
-  const whatsappNumber = "2349031957147";
-
   return (
     <a
-      href={`https://wa.me/${whatsappNumber}`}
+      href="https://wa.me/2349031957147"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Halal MeatHub on WhatsApp"
-      className="fixed bottom-6 right-5 z-[80] flex items-center gap-3 rounded-full border border-white/10 bg-[#151512] px-4 py-3 text-white shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:border-[#c7a875] sm:bottom-8 sm:right-8"
+      className="fixed bottom-5 right-5 z-[80] flex h-14 w-14 items-center justify-center bg-[#9b2936] text-white shadow-xl transition duration-300 hover:-translate-y-1 hover:bg-[#84232e] sm:bottom-7 sm:right-7"
     >
-      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#25D366] text-black">
-        <MessageCircle size={21} strokeWidth={2.5} />
-      </span>
-
-      <span className="hidden text-xs font-black uppercase tracking-[0.15em] sm:block">
-        WhatsApp Us
-      </span>
+      <MessageCircle size={23} strokeWidth={2} />
     </a>
   );
 }

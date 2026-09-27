@@ -1,94 +1,120 @@
-import { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  ArrowUpRight,
+  MapPin,
+  MessageCircle,
+  Truck,
+} from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const Contact = () => {
-  const sectionRef = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".contact-reveal", {
-        y: 80,
-        opacity: 0,
-        duration: 1.1,
-        stagger: 0.12,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 75%",
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
+function Contact() {
   return (
     <section
-      ref={sectionRef}
       id="contact"
-      className="relative overflow-hidden bg-[#11110f] px-6 py-32 md:px-12 lg:px-16"
+      className="bg-[#f4f0e8] px-6 py-20 text-[#171717] lg:px-12 lg:py-28"
     >
-      <div className="mx-auto max-w-7xl">
-        <div className="contact-reveal mb-20">
-          <p className="mb-6 text-[10px] uppercase tracking-[0.35em] text-[#c7a875]">
-            Find The Hub
-          </p>
-
-          <h2 className="max-w-6xl text-[clamp(3.5rem,13vw,10rem)] font-black uppercase leading-[0.78] tracking-[-0.08em]">
-            Come
-            <br />
-            <span className="text-white/30">Through.</span>
-          </h2>
-        </div>
-
-        <div className="grid border-t border-white/10 md:grid-cols-3">
-          <div className="contact-reveal border-b border-white/10 py-8 md:border-b-0 md:border-r md:pr-10">
-            <p className="text-[9px] uppercase tracking-[0.3em] text-white/35">
-              Location
+      <div className="mx-auto max-w-[1500px]">
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          {/* LEFT */}
+          <div className="bg-[#9b2936] p-8 text-white sm:p-10 lg:p-14">
+            <p className="text-sm font-semibold text-white/60">
+              READY TO GET YOUR PORTION?
             </p>
 
-            <p className="mt-5 text-lg text-white/75">
-              Lagos, Nigeria
-            </p>
-          </div>
+            <h2 className="mt-5 max-w-[650px] text-4xl font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl lg:text-7xl">
+              Talk directly
+              <br />
+              to the Hub.
+            </h2>
 
-          <div className="contact-reveal border-b border-white/10 py-8 md:border-b-0 md:border-r md:px-10">
-            <p className="text-[9px] uppercase tracking-[0.3em] text-white/35">
-              TikTok
+            <p className="mt-7 max-w-[500px] text-base leading-7 text-white/70">
+              Check today's availability first, then message us
+              to confirm your portion, collection, or dispatch.
             </p>
 
             <a
-              href="https://www.tiktok.com/@halal_meathub0"
+              href="https://wa.me/2349031957147"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 block text-lg transition hover:text-[#c7a875]"
+              className="mt-9 inline-flex items-center gap-3 bg-white px-6 py-4 text-sm font-bold text-[#171717] transition hover:bg-[#171717] hover:text-white"
             >
-              @halal_meathub0
+              <MessageCircle size={18} />
+              WhatsApp the Hub
+              <ArrowUpRight size={17} />
             </a>
           </div>
 
-          <div className="contact-reveal py-8 md:pl-10">
-            <p className="text-[9px] uppercase tracking-[0.3em] text-white/35">
-              Connect
-            </p>
+          {/* RIGHT */}
+          <div className="border border-[#171717]/15 bg-white">
+            <div className="border-b border-[#171717]/10 p-7 sm:p-9">
+              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#777]">
+                COLLECTION
+              </p>
 
-            <a
-              href="https://www.tiktok.com/@halal_meathub0"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-4 border border-white/20 px-6 py-4 text-[10px] uppercase tracking-[0.25em] transition duration-500 hover:bg-white hover:text-black"
-            >
-              Visit TikTok
-              <span>↗</span>
-            </a>
+              <div className="mt-4 flex items-start gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-[#171717] text-white">
+                  <MapPin size={19} />
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold">
+                    Visit the Hub
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-[#666]">
+                    Balogun Bus Stop, Shop LAA43,
+                    <br />
+                    Potoku Market, Ikotun, Lagos.
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Balogun+Bus+Stop+Potoku+Market+Ikotun+Lagos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 flex items-center justify-between border-t border-[#171717]/10 pt-5 text-sm font-semibold"
+              >
+                Get directions
+                <ArrowUpRight size={17} />
+              </a>
+            </div>
+
+            <div className="p-7 sm:p-9">
+              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#777]">
+                DISPATCH
+              </p>
+
+              <div className="mt-4 flex items-start gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-[#e9e4da]">
+                  <Truck size={19} />
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold">
+                    Coming from farther away?
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-[#666]">
+                    Ask the Hub about dispatch availability
+                    for your location.
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href="https://wa.me/2349031957147"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 flex items-center justify-between border-t border-[#171717]/10 pt-5 text-sm font-semibold text-[#9b2936]"
+              >
+                Ask about dispatch
+                <ArrowUpRight size={17} />
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
-};
+}
 
 export default Contact;

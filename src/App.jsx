@@ -1,32 +1,42 @@
 import { useEffect, useState } from "react";
+
+import AdminDashboard from "./admin/AdminDashboard";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+
 import Hero from "./components/Hero";
 import Stats from "./components/Stats";
-import About from "./components/About";
 import MeatShowcase from "./components/MeatShowcase";
+import About from "./components/About";
 import TikTokShowcase from "./components/TikTokShowcase";
 import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
-import CustomCursor from "./components/CustomCursor";
 
 import logo from "./assets/halal-meathub-logo.png";
 
 function App() {
-  const [introDone, setIntroDone] = useState(false);
+  const isAdminPage = window.location.pathname === "/admin";
+  const [introDone, setIntroDone] = useState(isAdminPage);
 
   useEffect(() => {
+    if (isAdminPage) {
+      return;
+    }
+
     const timer = setTimeout(() => {
       setIntroDone(true);
     }, 2600);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isAdminPage]);
+
+  if (isAdminPage) {
+    return <AdminDashboard />;
+  }
 
   return (
     <>
-      {/* LOGO INTRO */}
       {!introDone && (
         <div className="logo-intro">
           <img
@@ -38,17 +48,16 @@ function App() {
       )}
 
       <SmoothScroll />
-      <CustomCursor />
       <WhatsAppFloat />
 
       <main>
         <Hero />
         <Stats />
-        <About />
         <MeatShowcase />
+        <About />
         <TikTokShowcase />
-        <Gallery />
         <Contact />
+        <Gallery />
         <Footer />
       </main>
     </>

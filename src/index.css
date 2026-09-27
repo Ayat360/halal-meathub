@@ -1,141 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  font-family: "Inter", sans-serif;
-  color: #f5f1e8;
-  background: #0b0b0a;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  color: #171717;
+  background: #f4f0e8;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
+  margin: 0;
   min-width: 320px;
-  background: #0b0b0a;
-  color: #f5f1e8;
-  overflow-x: hidden;
+  background: #f4f0e8;
 }
 
 button,
-a {
+a,
+input,
+textarea,
+select {
   font: inherit;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-::selection {
-  background: #f5f1e8;
-  color: #0b0b0a;
-}
-
-/* Premium interactions */
-
-@media (pointer: fine) {
-  html,
-  body {
-    cursor: none;
-  }
-}
-
-@media (pointer: coarse) {
-  html,
-  body {
-    cursor: auto;
-  }
-}
-
-a,
 button {
-  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
 }
 
 img {
-  user-select: none;
-  -webkit-user-drag: none;
+  max-width: 100%;
 }
 
 ::selection {
-  background: #c7a875;
-  color: #0b0b0a;
-}
-
-/* Page entrance */
-
-#root {
-  animation: pageEnter 0.8s ease-out both;
-}
-
-@keyframes pageEnter {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@media (max-width: 767px) {
-  section {
-    scroll-margin-top: 90px;
-  }
-
-  p {
-    max-width: 100%;
-  }
-}
-
-@keyframes logoIntro {
-  0% {
-    opacity: 0;
-    transform: scale(0.75);
-  }
-
-  35% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  75% {
-    opacity: 1;
-    transform: scale(1.03);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(1.08);
-  }
+  background: #8f2633;
+  color: #ffffff;
 }
 
 /* =========================================
-   HALAL MEATHUB LOGO INTRO
+   HALAL MEATHUB — LOGO INTRO
 ========================================= */
 
 .logo-intro {
   position: fixed;
   inset: 0;
   z-index: 9999;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  background: #0b0b0a;
-
   overflow: hidden;
-
+  background: #111111;
   animation: introExit 2.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
@@ -143,7 +64,6 @@ img {
   width: 180px;
   height: auto;
   object-fit: contain;
-
   animation: logoZoom 2.6s cubic-bezier(0.76, 0, 0.24, 1) forwards;
 }
 
@@ -172,10 +92,12 @@ img {
 @keyframes introExit {
   0% {
     opacity: 1;
+    visibility: visible;
   }
 
   72% {
     opacity: 1;
+    visibility: visible;
   }
 
   100% {

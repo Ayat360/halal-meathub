@@ -1,77 +1,126 @@
-import { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {
+  ArrowDownRight,
+  MessageCircle,
+  MapPin,
+  Truck,
+} from "lucide-react";
 
-gsap.registerPlugin(ScrollTrigger);
-
-const About = () => {
-  const sectionRef = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".about-reveal", {
-        y: 80,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+function About() {
+  const steps = [
+    {
+      number: "01",
+      title: "Check today's sharing",
+      text: "See what is being shared, the current price, portions remaining, and whether sharing is still underway.",
+      icon: ArrowDownRight,
+    },
+    {
+      number: "02",
+      title: "Talk to the Hub",
+      text: "Need a portion or want to confirm availability? Message Halal MeatHub directly on WhatsApp.",
+      icon: MessageCircle,
+    },
+    {
+      number: "03",
+      title: "Collect or dispatch",
+      text: "Come to the Hub in Ikotun for collection, or arrange dispatch if you're ordering from farther away.",
+      icon: Truck,
+    },
+  ];
 
   return (
-<section
-  ref={sectionRef}
-  id="about"
-  className="relative overflow-hidden bg-[#0b0b0a] px-6 py-36 md:px-12 lg:px-16"
->
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          
-          <div className="about-reveal">
-            <p className="mb-6 text-[10px] uppercase tracking-[0.35em] text-[#c7a875]">
-              About Halal MeatHub
+    <section
+      id="hub"
+      className="bg-[#f4f0e8] px-6 py-20 text-[#171717] lg:px-12 lg:py-28"
+    >
+      <div className="mx-auto max-w-[1500px]">
+        {/* HEADER */}
+        <div className="grid gap-8 border-b border-[#171717]/15 pb-10 lg:grid-cols-[1fr_0.8fr] lg:items-end">
+          <div>
+            <p className="mb-4 text-sm font-semibold text-[#9b2936]">
+              HOW THE HUB WORKS
             </p>
 
-            <h2 className="text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-7xl lg:text-8xl">
-              Freshness
+            <h2 className="max-w-[850px] text-4xl font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl lg:text-7xl">
+              From today's
               <br />
-              <span className="text-white/30">you can trust.</span>
+              sharing to your table.
             </h2>
           </div>
 
-          <div className="about-reveal max-w-2xl">
-            <p className="text-lg leading-8 text-white/80 sm:text-xl md:text-3xl md:leading-[1.35]">
-              Halal MeatHub is built around one simple idea — quality meat
-              should speak for itself.
-            </p>
+          <p className="max-w-[430px] text-base leading-7 text-[#555] lg:ml-auto">
+            Halal MeatHub keeps the process simple. Check what is
+            happening today, confirm what you need, then collect
+            from the Hub or arrange dispatch.
+          </p>
+        </div>
 
-            <p className="mt-8 max-w-xl text-sm leading-8 text-white/45">
-              From carefully selected cuts to fresh preparation, every detail
-              is handled with quality and halal standards in mind. What began
-              as a meat brand is becoming a community people can discover,
-              trust and follow.
-            </p>
+        {/* STEPS */}
+        <div className="mt-10 border-t border-[#171717]/15">
+          {steps.map((step) => {
+            const Icon = step.icon;
 
-            <div className="mt-10 flex items-center gap-4">
-              <span className="h-px w-12 bg-[#c7a875]" />
+            return (
+              <div
+                key={step.number}
+                className="group grid gap-6 border-b border-[#171717]/15 py-8 md:grid-cols-[100px_1fr_1.2fr_60px] md:items-center lg:py-10"
+              >
+                <span className="text-sm font-semibold text-[#9b2936]">
+                  {step.number}
+                </span>
 
-              <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">
-                Quality • Freshness • Halal
-              </span>
+                <h3 className="text-2xl font-bold tracking-[-0.025em] sm:text-3xl">
+                  {step.title}
+                </h3>
+
+                <p className="max-w-[520px] text-base leading-7 text-[#666]">
+                  {step.text}
+                </p>
+
+                <div className="flex h-11 w-11 items-center justify-center border border-[#171717]/15 transition duration-300 group-hover:bg-[#171717] group-hover:text-white">
+                  <Icon size={18} strokeWidth={1.8} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* LOCATION STRIP */}
+        <div className="mt-10 grid gap-0 bg-[#171717] text-white md:grid-cols-[1fr_auto]">
+          <div className="p-7 sm:p-9 lg:p-10">
+            <div className="flex items-start gap-4">
+              <div className="mt-1 flex h-11 w-11 shrink-0 items-center justify-center bg-[#9b2936]">
+                <MapPin size={19} />
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.08em] text-white/40">
+                  THE HUB
+                </p>
+
+                <h3 className="mt-2 text-xl font-bold sm:text-2xl">
+                  Balogun Bus Stop · Potoku Market
+                </h3>
+
+                <p className="mt-2 text-sm leading-6 text-white/50">
+                  Shop LAA43, Igando Road, Ikotun, Lagos.
+                </p>
+              </div>
             </div>
           </div>
 
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Balogun+Bus+Stop+Potoku+Market+Ikotun+Lagos"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between gap-6 border-t border-white/10 px-7 py-6 text-sm font-semibold transition hover:bg-white hover:text-black md:border-l md:border-t-0 md:px-9"
+          >
+            Get directions
+            <ArrowDownRight size={18} />
+          </a>
         </div>
       </div>
     </section>
   );
-};
+}
 
 export default About;
