@@ -1,403 +1,355 @@
 import { useState } from "react";
-
-const meatOptions = ["Cow", "Goat", "Ram"];
-
-const sharingOptions = [
-  "Not Started",
-  "Sharing Now",
-  "Almost Finished",
-  "Finished",
-];
+import {
+  Save,
+  Beef,
+  CircleCheck,
+  Truck,
+  Megaphone,
+} from "lucide-react";
 
 function AdminDashboard() {
-  const [animal, setAnimal] = useState("Cow");
-  const [price, setPrice] = useState("");
-  const [portions, setPortions] = useState("");
-  const [portionSize, setPortionSize] = useState("");
-  const [sharingStatus, setSharingStatus] = useState("Not Started");
-  const [collection, setCollection] = useState(true);
-  const [dispatch, setDispatch] = useState(true);
-  const [announcement, setAnnouncement] = useState("");
+  const [meats, setMeats] = useState([
+    {
+      name: "Cow",
+      available: true,
+      price: "25000",
+      portions: "8",
+      portionSize: "Large share",
+      status: "Available",
+      collection: true,
+      dispatch: true,
+    },
+    {
+      name: "Goat",
+      available: true,
+      price: "20000",
+      portions: "12",
+      portionSize: "Large share",
+      status: "Sharing now",
+      collection: true,
+      dispatch: true,
+    },
+    {
+      name: "Ram",
+      available: true,
+      price: "30000",
+      portions: "5",
+      portionSize: "Large share",
+      status: "Available",
+      collection: true,
+      dispatch: true,
+    },
+  ]);
 
-  const handlePublish = (e) => {
-    e.preventDefault();
+  const [announcement, setAnnouncement] = useState(
+    "Today's sharing is currently underway. Contact the Hub before travelling to confirm availability."
+  );
 
-    console.log({
-      animal,
-      price,
-      portions,
-      portionSize,
-      sharingStatus,
-      collection,
-      dispatch,
+  const updateMeat = (index, field, value) => {
+    setMeats((current) =>
+      current.map((meat, i) =>
+        i === index
+          ? {
+              ...meat,
+              [field]: value,
+            }
+          : meat
+      )
+    );
+  };
+
+  const handleSave = () => {
+    console.log("Today's Sharing:", {
+      meats,
       announcement,
     });
 
-    alert("Today's meat update is ready to publish.");
+    alert("Today's Sharing updated.");
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0b0a] text-white">
-      {/* TOP BAR */}
-      <header className="border-b border-white/10 bg-[#0f0f0d]">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8">
+    <main className="min-h-screen bg-[#f4f0e8] text-[#171717]">
+      {/* HEADER */}
+      <header className="border-b border-[#171717]/10 bg-[#171717] px-6 py-6 text-white lg:px-12">
+        <div className="mx-auto flex max-w-[1500px] items-center justify-between gap-6">
           <div>
-            <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#c7a875]">
+            <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#c99a5b]">
               Halal MeatHub
             </p>
 
-            <h1 className="mt-1 text-xl font-black uppercase tracking-[-0.03em]">
-              Admin Dashboard
+            <h1 className="mt-2 text-2xl font-bold sm:text-3xl">
+              Today's Sharing
             </h1>
           </div>
 
-          <div className="hidden text-right sm:block">
-            <p className="text-xs font-bold text-white/70">
-              Business Management
-            </p>
-
-            <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/40">
-              Live Control Panel
-            </p>
-          </div>
+          <a
+            href="/"
+            className="border border-white/15 px-5 py-3 text-sm font-semibold transition hover:bg-white hover:text-black"
+          >
+            View website
+          </a>
         </div>
       </header>
 
-      {/* MAIN */}
-      <main className="mx-auto max-w-7xl px-5 py-8 md:px-8 md:py-12">
-        {/* WELCOME */}
-        <section className="mb-10">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-white/40">
-            Today's Operations
+      {/* CONTENT */}
+      <div className="mx-auto max-w-[1500px] px-6 py-10 lg:px-12 lg:py-14">
+
+        {/* INTRO */}
+        <div className="max-w-[750px]">
+          <p className="text-sm font-bold uppercase tracking-[0.08em] text-[#9b2936]">
+            Live information
           </p>
 
-          <h2 className="mt-3 max-w-3xl text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] sm:text-5xl md:text-7xl">
-            Manage what customers see.
+          <h2 className="mt-3 text-4xl font-bold tracking-[-0.04em] sm:text-5xl">
+            Update what customers see today.
           </h2>
 
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-white/60 sm:text-base">
-            Update today's meat availability, sharing status, collection,
-            dispatch and announcements. Published information will appear on
-            the public Halal MeatHub website.
+          <p className="mt-4 text-base leading-7 text-[#666]">
+            Change the meat, price, available portions, sharing status,
+            collection, dispatch and announcement from here.
           </p>
+        </div>
+
+        {/* MEAT CONTROLS */}
+        <div className="mt-10 space-y-5">
+          {meats.map((meat, index) => (
+            <section
+              key={meat.name}
+              className="border border-[#171717]/10 bg-white"
+            >
+              {/* MEAT HEADER */}
+              <div className="flex flex-col justify-between gap-5 border-b border-[#171717]/10 p-6 sm:flex-row sm:items-center sm:p-8">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center bg-[#171717] text-white">
+                    <Beef size={21} />
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-bold">
+                      {meat.name}
+                    </h3>
+
+                    <p className="mt-1 text-sm text-[#777]">
+                      Customer availability
+                    </p>
+                  </div>
+                </div>
+
+                <label className="flex cursor-pointer items-center gap-3 text-sm font-semibold">
+                  <input
+                    type="checkbox"
+                    checked={meat.available}
+                    onChange={(e) =>
+                      updateMeat(
+                        index,
+                        "available",
+                        e.target.checked
+                      )
+                    }
+                    className="h-5 w-5 accent-[#9b2936]"
+                  />
+
+                  Available today
+                </label>
+              </div>
+
+              {/* FIELDS */}
+              <div className="grid gap-6 p-6 sm:p-8 md:grid-cols-2 lg:grid-cols-4">
+
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#777]">
+                    Price
+                  </span>
+
+                  <div className="mt-2 flex border border-[#171717]/15 bg-[#f8f6f1]">
+                    <span className="flex items-center px-3 text-sm font-bold">
+                      ₦
+                    </span>
+
+                    <input
+                      type="number"
+                      value={meat.price}
+                      onChange={(e) =>
+                        updateMeat(
+                          index,
+                          "price",
+                          e.target.value
+                        )
+                      }
+                      className="w-full bg-transparent px-3 py-3 outline-none"
+                    />
+                  </div>
+                </label>
+
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#777]">
+                    Portions remaining
+                  </span>
+
+                  <input
+                    type="number"
+                    min="0"
+                    value={meat.portions}
+                    onChange={(e) =>
+                      updateMeat(
+                        index,
+                        "portions",
+                        e.target.value
+                      )
+                    }
+                    className="mt-2 w-full border border-[#171717]/15 bg-[#f8f6f1] px-4 py-3 outline-none"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#777]">
+                    Portion size
+                  </span>
+
+                  <input
+                    type="text"
+                    value={meat.portionSize}
+                    onChange={(e) =>
+                      updateMeat(
+                        index,
+                        "portionSize",
+                        e.target.value
+                      )
+                    }
+                    className="mt-2 w-full border border-[#171717]/15 bg-[#f8f6f1] px-4 py-3 outline-none"
+                  />
+                </label>
+
+                <label className="block">
+                  <span className="text-xs font-bold uppercase tracking-[0.08em] text-[#777]">
+                    Sharing status
+                  </span>
+
+                  <select
+                    value={meat.status}
+                    onChange={(e) =>
+                      updateMeat(
+                        index,
+                        "status",
+                        e.target.value
+                      )
+                    }
+                    className="mt-2 w-full border border-[#171717]/15 bg-[#f8f6f1] px-4 py-3 outline-none"
+                  >
+                    <option>Not started</option>
+                    <option>Sharing now</option>
+                    <option>Finished</option>
+                    <option>Available</option>
+                  </select>
+                </label>
+              </div>
+
+              {/* AVAILABILITY OPTIONS */}
+              <div className="grid border-t border-[#171717]/10 sm:grid-cols-2">
+
+                <label className="flex cursor-pointer items-center justify-between border-b border-[#171717]/10 p-6 sm:border-b-0 sm:border-r sm:p-8">
+                  <div className="flex items-center gap-3">
+                    <CircleCheck size={20} />
+
+                    <div>
+                      <p className="font-bold">
+                        Collection
+                      </p>
+
+                      <p className="mt-1 text-sm text-[#777]">
+                        Customers can collect at the Hub
+                      </p>
+                    </div>
+                  </div>
+
+                  <input
+                    type="checkbox"
+                    checked={meat.collection}
+                    onChange={(e) =>
+                      updateMeat(
+                        index,
+                        "collection",
+                        e.target.checked
+                      )
+                    }
+                    className="h-5 w-5 accent-[#9b2936]"
+                  />
+                </label>
+
+                <label className="flex cursor-pointer items-center justify-between p-6 sm:p-8">
+                  <div className="flex items-center gap-3">
+                    <Truck size={20} />
+
+                    <div>
+                      <p className="font-bold">
+                        Dispatch
+                      </p>
+
+                      <p className="mt-1 text-sm text-[#777]">
+                        Dispatch can be arranged
+                      </p>
+                    </div>
+                  </div>
+
+                  <input
+                    type="checkbox"
+                    checked={meat.dispatch}
+                    onChange={(e) =>
+                      updateMeat(
+                        index,
+                        "dispatch",
+                        e.target.checked
+                      )
+                    }
+                    className="h-5 w-5 accent-[#9b2936]"
+                  />
+                </label>
+
+              </div>
+            </section>
+          ))}
+        </div>
+
+        {/* ANNOUNCEMENT */}
+        <section className="mt-6 border border-[#171717]/10 bg-white p-6 sm:p-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-11 w-11 items-center justify-center bg-[#9b2936] text-white">
+              <Megaphone size={19} />
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold">
+                Hub announcement
+              </h3>
+
+              <p className="mt-1 text-sm text-[#777]">
+                This message appears in Today's Sharing.
+              </p>
+            </div>
+          </div>
+
+          <textarea
+            value={announcement}
+            onChange={(e) => setAnnouncement(e.target.value)}
+            rows={4}
+            className="mt-6 w-full resize-none border border-[#171717]/15 bg-[#f8f6f1] px-4 py-4 outline-none"
+            placeholder="Write today's announcement..."
+          />
         </section>
 
-        <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-          {/* UPDATE FORM */}
-          <form
-            onSubmit={handlePublish}
-            className="rounded-2xl border border-white/10 bg-[#11110f] p-5 sm:p-7 md:p-8"
+        {/* SAVE */}
+        <div className="mt-8 flex justify-end">
+          <button
+            onClick={handleSave}
+            className="flex items-center gap-3 bg-[#9b2936] px-7 py-4 text-sm font-bold text-white transition hover:bg-[#84232e]"
           >
-            <div className="mb-8 border-b border-white/10 pb-6">
-              <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#c7a875]">
-                Today's Meat
-              </p>
-
-              <h3 className="mt-2 text-2xl font-black uppercase tracking-[-0.04em]">
-                Create today's update
-              </h3>
-            </div>
-
-            <div className="space-y-7">
-              {/* ANIMAL */}
-              <div>
-                <label className="mb-3 block text-xs font-black uppercase tracking-[0.18em] text-white/60">
-                  Animal Available
-                </label>
-
-                <div className="grid grid-cols-3 gap-2">
-                  {meatOptions.map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => setAnimal(option)}
-                      className={`rounded-xl border px-4 py-4 text-sm font-black uppercase transition-all duration-300 ${
-                        animal === option
-                          ? "border-[#c7a875] bg-[#c7a875] text-black"
-                          : "border-white/10 bg-white/[0.03] text-white/60 hover:border-white/30 hover:text-white"
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* PRICE */}
-              <div>
-                <label
-                  htmlFor="price"
-                  className="mb-3 block text-xs font-black uppercase tracking-[0.18em] text-white/60"
-                >
-                  Price
-                </label>
-
-                <div className="flex items-center rounded-xl border border-white/10 bg-white/[0.03] focus-within:border-[#c7a875]">
-                  <span className="pl-4 text-sm font-bold text-white/40">
-                    ₦
-                  </span>
-
-                  <input
-                    id="price"
-                    type="text"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Enter price"
-                    className="w-full bg-transparent px-3 py-4 text-sm font-bold text-white outline-none placeholder:text-white/25"
-                  />
-                </div>
-              </div>
-
-              {/* PORTIONS */}
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="portions"
-                    className="mb-3 block text-xs font-black uppercase tracking-[0.18em] text-white/60"
-                  >
-                    Number of Portions
-                  </label>
-
-                  <input
-                    id="portions"
-                    type="number"
-                    value={portions}
-                    onChange={(e) => setPortions(e.target.value)}
-                    placeholder="e.g. 20"
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm font-bold text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#c7a875]"
-                  />
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="portionSize"
-                    className="mb-3 block text-xs font-black uppercase tracking-[0.18em] text-white/60"
-                  >
-                    Portion Size
-                  </label>
-
-                  <input
-                    id="portionSize"
-                    type="text"
-                    value={portionSize}
-                    onChange={(e) => setPortionSize(e.target.value)}
-                    placeholder="e.g. Small / Medium"
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm font-bold text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#c7a875]"
-                  />
-                </div>
-              </div>
-
-              {/* SHARING STATUS */}
-              <div>
-                <label
-                  htmlFor="sharingStatus"
-                  className="mb-3 block text-xs font-black uppercase tracking-[0.18em] text-white/60"
-                >
-                  Sharing Status
-                </label>
-
-                <select
-                  id="sharingStatus"
-                  value={sharingStatus}
-                  onChange={(e) => setSharingStatus(e.target.value)}
-                  className="w-full appearance-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm font-bold text-white outline-none transition-colors focus:border-[#c7a875]"
-                >
-                  {sharingOptions.map((option) => (
-                    <option
-                      key={option}
-                      value={option}
-                      className="bg-[#11110f]"
-                    >
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* COLLECTION + DISPATCH */}
-              <div className="grid gap-4 sm:grid-cols-2">
-                <button
-                  type="button"
-                  onClick={() => setCollection(!collection)}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4 text-left transition-colors hover:border-white/20"
-                >
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.15em]">
-                      Collection
-                    </p>
-
-                    <p className="mt-1 text-xs text-white/40">
-                      Customers can collect
-                    </p>
-                  </div>
-
-                  <span
-                    className={`flex h-6 w-11 items-center rounded-full p-1 transition-colors ${
-                      collection ? "bg-[#c7a875]" : "bg-white/10"
-                    }`}
-                  >
-                    <span
-                      className={`h-4 w-4 rounded-full bg-black transition-transform ${
-                        collection ? "translate-x-5" : "translate-x-0"
-                      }`}
-                    />
-                  </span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setDispatch(!dispatch)}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[0.03] p-4 text-left transition-colors hover:border-white/20"
-                >
-                  <div>
-                    <p className="text-xs font-black uppercase tracking-[0.15em]">
-                      Dispatch
-                    </p>
-
-                    <p className="mt-1 text-xs text-white/40">
-                      Dispatch available
-                    </p>
-                  </div>
-
-                  <span
-                    className={`flex h-6 w-11 items-center rounded-full p-1 transition-colors ${
-                      dispatch ? "bg-[#c7a875]" : "bg-white/10"
-                    }`}
-                  >
-                    <span
-                      className={`h-4 w-4 rounded-full bg-black transition-transform ${
-                        dispatch ? "translate-x-5" : "translate-x-0"
-                      }`}
-                    />
-                  </span>
-                </button>
-              </div>
-
-              {/* ANNOUNCEMENT */}
-              <div>
-                <label
-                  htmlFor="announcement"
-                  className="mb-3 block text-xs font-black uppercase tracking-[0.18em] text-white/60"
-                >
-                  Special Announcement
-                </label>
-
-                <textarea
-                  id="announcement"
-                  value={announcement}
-                  onChange={(e) => setAnnouncement(e.target.value)}
-                  rows="5"
-                  placeholder="Write something customers should know today..."
-                  className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm font-bold leading-6 text-white outline-none transition-colors placeholder:text-white/25 focus:border-[#c7a875]"
-                />
-              </div>
-
-              {/* PUBLISH */}
-              <button
-                type="submit"
-                className="w-full rounded-xl bg-[#c7a875] px-6 py-5 text-xs font-black uppercase tracking-[0.2em] text-black transition-all duration-300 hover:-translate-y-1 hover:bg-[#d6ba8a]"
-              >
-                Publish Today's Update
-              </button>
-            </div>
-          </form>
-
-          {/* LIVE PREVIEW */}
-          <aside className="h-fit rounded-2xl border border-white/10 bg-[#11110f] p-6 lg:sticky lg:top-6">
-            <div className="flex items-center justify-between border-b border-white/10 pb-5">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-[#c7a875]">
-                  Customer View
-                </p>
-
-                <h3 className="mt-2 text-xl font-black uppercase tracking-[-0.04em]">
-                  Live Preview
-                </h3>
-              </div>
-
-              <span className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.15em] text-green-400">
-                <span className="h-2 w-2 rounded-full bg-green-400" />
-                Preview
-              </span>
-            </div>
-
-            <div className="mt-6">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
-                Today at the Hub
-              </p>
-
-              <h4 className="mt-2 text-3xl font-black uppercase leading-[0.9] tracking-[-0.05em]">
-                {animal} Meat
-              </h4>
-
-              <div className="mt-6 space-y-3">
-                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-white/50">
-                      Price
-                    </span>
-
-                    <span className="font-black">
-                      {price ? `₦${price}` : "Not set"}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-white/50">
-                      Portions
-                    </span>
-
-                    <span className="font-black">
-                      {portions || "Not set"}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-xs font-bold text-white/50">
-                      Sharing
-                    </span>
-
-                    <span className="text-right text-xs font-black uppercase text-[#c7a875]">
-                      {sharingStatus}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {announcement && (
-                <div className="mt-4 rounded-xl border border-[#c7a875]/30 bg-[#c7a875]/5 p-4">
-                  <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[#c7a875]">
-                    Announcement
-                  </p>
-
-                  <p className="mt-2 text-sm leading-6 text-white/70">
-                    {announcement}
-                  </p>
-                </div>
-              )}
-
-              <div className="mt-5 flex gap-2">
-                {collection && (
-                  <span className="rounded-full bg-white/5 px-3 py-2 text-[9px] font-black uppercase tracking-[0.1em] text-white/60">
-                    Collection
-                  </span>
-                )}
-
-                {dispatch && (
-                  <span className="rounded-full bg-white/5 px-3 py-2 text-[9px] font-black uppercase tracking-[0.1em] text-white/60">
-                    Dispatch
-                  </span>
-                )}
-              </div>
-            </div>
-          </aside>
+            <Save size={18} />
+            Save Today's Sharing
+          </button>
         </div>
-      </main>
-    </div>
+
+      </div>
+    </main>
   );
 }
 
