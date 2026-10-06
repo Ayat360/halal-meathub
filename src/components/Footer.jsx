@@ -1,71 +1,92 @@
-import {
-  ArrowUpRight,
-  MessageCircle,
-  MapPin,
-} from "lucide-react";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ArrowUpRight, MapPin, MessageCircle } from "lucide-react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function Footer() {
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".footer-reveal", {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 85%",
+        },
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <footer className="bg-[#111111] px-6 pb-8 pt-16 text-white lg:px-12 lg:pt-20">
-      <div className="mx-auto max-w-[1500px]">
-        {/* TOP */}
-        <div className="grid gap-12 border-b border-white/10 pb-14 lg:grid-cols-[1.4fr_0.6fr_0.7fr]">
+    <footer
+      ref={footerRef}
+      className="bg-[#171717] px-5 pb-8 pt-20 text-[#f4f0e8] sm:px-8 lg:px-10 lg:pt-24"
+    >
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid gap-14 border-b border-white/10 pb-14 lg:grid-cols-[1.3fr_0.7fr_0.7fr] lg:gap-20">
           {/* BRAND */}
-          <div>
-            <p className="text-sm font-semibold tracking-[0.12em] text-[#c99a5b]">
-              HALAL MEATHUB
-            </p>
+          <div className="footer-reveal">
+            <a
+              href="#top"
+              className="inline-block text-2xl font-bold tracking-[-0.04em]"
+            >
+              HALAL <span className="text-[#c98b58]">MEATHUB</span>
+            </a>
 
-            <h2 className="mt-5 max-w-[700px] text-4xl font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl lg:text-6xl">
-              Fresh sharing.
-              <br />
-              Straight from the Hub.
-            </h2>
-
-            <p className="mt-6 max-w-[500px] text-sm leading-7 text-white/45">
-              Check today's sharing, confirm availability, and
-              connect with Halal MeatHub for collection or dispatch.
+            <p className="mt-6 max-w-md text-sm leading-7 text-white/45 sm:text-base">
+              Fresh meat sharing in Lagos. Check what is available today,
+              confirm with the Hub, then collect or arrange dispatch when
+              available.
             </p>
           </div>
 
-          {/* EXPLORE */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white/35">
+          {/* NAVIGATION */}
+          <div className="footer-reveal">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-white/35">
               Explore
             </p>
 
-            <nav className="mt-6 flex flex-col items-start gap-4">
+            <nav className="flex flex-col gap-4 text-sm text-white/65">
               <a
                 href="#today"
-                className="text-sm text-white/65 transition hover:text-white"
+                className="transition-colors hover:text-white"
               >
                 Today's Sharing
               </a>
 
               <a
                 href="#meat"
-                className="text-sm text-white/65 transition hover:text-white"
+                className="transition-colors hover:text-white"
               >
                 Our Meat
               </a>
 
               <a
                 href="#hub"
-                className="text-sm text-white/65 transition hover:text-white"
+                className="transition-colors hover:text-white"
               >
-                How the Hub Works
+                The Hub
               </a>
 
               <a
                 href="#tiktok"
-                className="text-sm text-white/65 transition hover:text-white"
+                className="transition-colors hover:text-white"
               >
                 TikTok
               </a>
 
               <a
                 href="#contact"
-                className="text-sm text-white/65 transition hover:text-white"
+                className="transition-colors hover:text-white"
               >
                 Contact
               </a>
@@ -73,78 +94,65 @@ function Footer() {
           </div>
 
           {/* CONTACT */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.1em] text-white/35">
-              Contact
+          <div className="footer-reveal">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-white/35">
+              The Hub
             </p>
 
-            <div className="mt-6 space-y-5">
+            <div className="flex flex-col gap-5 text-sm text-white/60">
               <a
                 href="https://wa.me/2349031957147"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-3 text-sm text-white/65 transition hover:text-white"
+                className="group flex items-center gap-3 transition-colors hover:text-white"
               >
-                <MessageCircle
-                  size={17}
-                  className="mt-0.5 shrink-0"
+                <MessageCircle size={17} strokeWidth={1.8} />
+                WhatsApp
+                <ArrowUpRight
+                  size={14}
+                  className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
                 />
-                <span>
-                  WhatsApp
-                  <br />
-                  0903 195 7147
-                </span>
               </a>
 
               <a
-                href="https://www.google.com/maps/search/?api=1&query=Balogun+Bus+Stop+Potoku+Market+Ikotun+Lagos"
+                href="https://www.google.com/maps/search/?api=1&query=Potoku%20Market%20Ikotun%20Lagos"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-start gap-3 text-sm leading-6 text-white/65 transition hover:text-white"
+                className="group flex items-start gap-3 transition-colors hover:text-white"
               >
                 <MapPin
                   size={17}
+                  strokeWidth={1.8}
                   className="mt-0.5 shrink-0"
                 />
+
                 <span>
-                  Balogun Bus Stop
+                  Shop LAA43
                   <br />
                   Potoku Market, Ikotun
                   <br />
                   Lagos
                 </span>
               </a>
-
-              <a
-                href="https://www.tiktok.com/@halal_meathub0"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-[#c99a5b]"
-              >
-                TikTok
-                <ArrowUpRight size={15} />
-              </a>
             </div>
           </div>
         </div>
 
         {/* BOTTOM */}
-        <div className="flex flex-col justify-between gap-5 pt-7 text-xs text-white/35 sm:flex-row sm:items-center">
-          <p>
-            © {new Date().getFullYear()} Halal MeatHub. All rights reserved.
-          </p>
+        <div className="flex flex-col gap-5 pt-7 text-xs text-white/35 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Halal MeatHub. All rights reserved.</p>
 
-          <a
-            href="https://portfolio-v1-five-sooty.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-white/55 transition hover:text-white"
-          >
+          <p>
             Website crafted by{" "}
-            <span className="font-bold text-white">
+            <a
+              href="https://portfolio-v1-five-sooty.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-bold text-white transition-colors hover:text-[#c98b58]"
+            >
               PROXIMA A3
-            </span>
-          </a>
+            </a>
+          </p>
         </div>
       </div>
     </footer>

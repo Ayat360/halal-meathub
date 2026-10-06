@@ -1,113 +1,157 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowUpRight,
   MapPin,
   MessageCircle,
-  Truck,
+  Phone,
 } from "lucide-react";
 
+gsap.registerPlugin(ScrollTrigger);
+
 function Contact() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".contact-content", {
+        y: 45,
+        opacity: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 78%",
+        },
+      });
+
+      gsap.from(".contact-actions", {
+        y: 35,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="contact"
-      className="bg-[#f4f0e8] px-6 py-20 text-[#171717] lg:px-12 lg:py-28"
+      className="bg-[#8f2633] px-5 py-24 text-[#f4f0e8] sm:px-8 sm:py-28 lg:px-10 lg:py-36"
     >
-      <div className="mx-auto max-w-[1500px]">
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-end lg:gap-24">
           {/* LEFT */}
-          <div className="bg-[#9b2936] p-8 text-white sm:p-10 lg:p-14">
-            <p className="text-sm font-semibold text-white/60">
-              READY TO GET YOUR PORTION?
-            </p>
+          <div className="contact-content">
+            <div className="mb-7 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.22em] text-white/65">
+              <span className="h-2 w-2 bg-white" />
+              Contact the Hub
+            </div>
 
-            <h2 className="mt-5 max-w-[650px] text-4xl font-bold leading-[0.95] tracking-[-0.045em] sm:text-5xl lg:text-7xl">
-              Talk directly
+            <h2 className="max-w-4xl text-5xl font-semibold leading-[0.92] tracking-[-0.05em] sm:text-6xl lg:text-8xl">
+              Ready for
               <br />
-              to the Hub.
+              your share?
             </h2>
 
-            <p className="mt-7 max-w-[500px] text-base leading-7 text-white/70">
-              Check today's availability first, then message us
-              to confirm your portion, collection, or dispatch.
+            <p className="mt-8 max-w-xl text-base leading-8 text-white/70 sm:text-lg">
+              Check today's sharing first, then contact the Hub to confirm
+              availability, collection or dispatch before making your trip.
             </p>
-
-            <a
-              href="https://wa.me/2349031957147"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-9 inline-flex items-center gap-3 bg-white px-6 py-4 text-sm font-bold text-[#171717] transition hover:bg-[#171717] hover:text-white"
-            >
-              <MessageCircle size={18} />
-              WhatsApp the Hub
-              <ArrowUpRight size={17} />
-            </a>
           </div>
 
           {/* RIGHT */}
-          <div className="border border-[#171717]/15 bg-white">
-            <div className="border-b border-[#171717]/10 p-7 sm:p-9">
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#777]">
-                COLLECTION
-              </p>
-
-              <div className="mt-4 flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-[#171717] text-white">
-                  <MapPin size={19} />
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold">
-                    Visit the Hub
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-6 text-[#666]">
-                    Balogun Bus Stop, Shop LAA43,
-                    <br />
-                    Potoku Market, Ikotun, Lagos.
-                  </p>
-                </div>
-              </div>
-
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Balogun+Bus+Stop+Potoku+Market+Ikotun+Lagos"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 flex items-center justify-between border-t border-[#171717]/10 pt-5 text-sm font-semibold"
-              >
-                Get directions
-                <ArrowUpRight size={17} />
-              </a>
-            </div>
-
-            <div className="p-7 sm:p-9">
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#777]">
-                DISPATCH
-              </p>
-
-              <div className="mt-4 flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center bg-[#e9e4da]">
-                  <Truck size={19} />
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-bold">
-                    Coming from farther away?
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-6 text-[#666]">
-                    Ask the Hub about dispatch availability
-                    for your location.
-                  </p>
-                </div>
-              </div>
-
+          <div className="contact-actions">
+            <div className="border-t border-white/20">
               <a
                 href="https://wa.me/2349031957147"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 flex items-center justify-between border-t border-[#171717]/10 pt-5 text-sm font-semibold text-[#9b2936]"
+                className="group flex items-center justify-between border-b border-white/20 py-6"
               >
-                Ask about dispatch
-                <ArrowUpRight size={17} />
+                <div className="flex items-center gap-4">
+                  <MessageCircle size={22} strokeWidth={1.8} />
+
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.16em] text-white/50">
+                      WhatsApp
+                    </p>
+
+                    <p className="mt-1 text-lg font-semibold">
+                      0903 195 7147
+                    </p>
+                  </div>
+                </div>
+
+                <span className="flex h-10 w-10 items-center justify-center border border-white/25 transition duration-300 group-hover:bg-white group-hover:text-[#8f2633]">
+                  <ArrowUpRight
+                    size={17}
+                    className="transition duration-300 group-hover:rotate-45"
+                  />
+                </span>
+              </a>
+
+              <a
+                href="tel:+2349031957147"
+                className="group flex items-center justify-between border-b border-white/20 py-6"
+              >
+                <div className="flex items-center gap-4">
+                  <Phone size={21} strokeWidth={1.8} />
+
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.16em] text-white/50">
+                      Call
+                    </p>
+
+                    <p className="mt-1 text-lg font-semibold">
+                      0903 195 7147
+                    </p>
+                  </div>
+                </div>
+
+                <span className="flex h-10 w-10 items-center justify-center border border-white/25 transition duration-300 group-hover:bg-white group-hover:text-[#8f2633]">
+                  <ArrowUpRight
+                    size={17}
+                    className="transition duration-300 group-hover:rotate-45"
+                  />
+                </span>
+              </a>
+
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Potoku%20Market%20Ikotun%20Lagos"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between py-6"
+              >
+                <div className="flex items-center gap-4">
+                  <MapPin size={21} strokeWidth={1.8} />
+
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.16em] text-white/50">
+                      Find the Hub
+                    </p>
+
+                    <p className="mt-1 max-w-[230px] text-lg font-semibold leading-7">
+                      Potoku Market, Ikotun, Lagos
+                    </p>
+                  </div>
+                </div>
+
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-white/25 transition duration-300 group-hover:bg-white group-hover:text-[#8f2633]">
+                  <ArrowUpRight
+                    size={17}
+                    className="transition duration-300 group-hover:rotate-45"
+                  />
+                </span>
               </a>
             </div>
           </div>
