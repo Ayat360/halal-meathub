@@ -24,6 +24,7 @@ function Hero() {
     { label: "Our Meat", href: "#meat" },
     { label: "The Hub", href: "#hub" },
     { label: "TikTok", href: "#tiktok" },
+    { label: "Book a Share", href: "#reservation" },
   ];
 
   useEffect(() => {

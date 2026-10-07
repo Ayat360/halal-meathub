@@ -7,6 +7,9 @@ import {
   Megaphone,
   LockKeyhole,
   LogOut,
+  ClipboardList,
+  Phone,
+  MapPin,
 } from "lucide-react";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/api`;
@@ -23,9 +26,14 @@ function AdminDashboard() {
   const [announcement, setAnnouncement] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+const [saving, setSaving] = useState(false);
+const [message, setMessage] = useState("");
+const [error, setError] = useState("");
+
+const [reservations, setReservations] = useState([]);
+const [reservationLoading, setReservationLoading] = useState(false);
+const [reservationError, setReservationError] = useState("");
+const [reservationUpdating, setReservationUpdating] = useState(null);
 
   // --------------------------------------------------
   // LOGIN
@@ -78,6 +86,89 @@ function AdminDashboard() {
   // --------------------------------------------------
   // LOAD SHARING
   // --------------------------------------------------
+const loadReservations = async (authToken = token) => {
+  if (!authToken) return;
+
+  setReservationLoading(true);
+  setReservationError("");
+
+  try {
+    const response = await fetch(
+      `${API_URL}/admin/reservations`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        data.message || "Failed to load reservations."
+      );
+    }
+
+    setReservations(data);
+  } catch (error) {
+    setReservationError(
+      error.message || "Failed to load reservations."
+    );
+  } finally {
+    setReservationLoading(false);
+  }
+};
+
+const updateReservationStatus = async (reservationId, status) => {
+if (!token) return;
+
+setReservationUpdating(reservationId);
+setReservationError("");
+
+try {
+const response = await fetch(
+`${API_URL}/admin/reservations/${reservationId}`,
+{
+method: "PUT",
+headers: {
+"Content-Type": "application/json",
+Authorization: `Bearer ${token}`,
+},
+body: JSON.stringify({
+status,
+}),
+}
+);
+
+const data = await response.json();
+
+if (!response.ok) {
+  throw new Error(
+    data.message || "Failed to update reservation."
+  );
+}
+
+setReservations((current) =>
+  current.map((reservation) =>
+    reservation.id === reservationId
+      ? {
+          ...reservation,
+          status,
+        }
+      : reservation
+  )
+);
+
+} catch (error) {
+setReservationError(
+error.message || "Failed to update reservation."
+);
+} finally {
+setReservationUpdating(null);
+}
+};
+
 
   useEffect(() => {
     if (!token) return;
@@ -104,9 +195,15 @@ function AdminDashboard() {
         setError(err.message);
       }
     };
+ loadSharing();
 
-    loadSharing();
-  }, [token]);
+  const timer = setTimeout(() => {
+    loadReservations();
+  }, 0);
+
+  return () => clearTimeout(timer);
+}, [token]);
+
 
   // --------------------------------------------------
   // UPDATE MEAT
@@ -582,6 +679,169 @@ function AdminDashboard() {
           ))}
 
         </div>
+
+        <section className="mt-10 border border-black/10 bg-white p-5 shadow-sm sm:p-7">
+  <div className="flex flex-col justify-between gap-4 border-b border-black/10 pb-5 sm:flex-row sm:items-end">
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9b2936]">
+        Customer reservations
+      </p>
+
+  <h2 className="mt-2 text-2xl font-semibold tracking-tight text-[#171717]">
+    Incoming Reservations
+  </h2>
+
+  <p className="mt-2 text-sm text-black/50">
+    Review customer requests and update their progress.
+  </p>
+</div>
+
+<div className="flex items-center gap-2 text-sm font-semibold text-black/60">
+  <ClipboardList size={18} />
+  {reservations.length}{" "}
+  {reservations.length === 1 ? "reservation" : "reservations"}
+</div>
+
+  </div>
+
+{reservationLoading ? ( <div className="py-12 text-center text-sm text-black/50">
+Loading reservations... </div>
+) : reservationError ? ( <div className="mt-6 border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+{reservationError} </div>
+) : reservations.length === 0 ? ( <div className="py-12 text-center"> <ClipboardList
+     size={32}
+     className="mx-auto text-black/20"
+   />
+
+  <p className="mt-4 font-semibold text-[#171717]">
+    No reservations yet.
+  </p>
+
+  <p className="mt-1 text-sm text-black/45">
+    Customer reservation requests will appear here.
+  </p>
+</div>
+
+) : ( <div className="mt-6 space-y-4">
+{reservations.map((reservation) => ( <article
+       key={reservation.id}
+       className="border border-black/10 bg-[#faf9f6] p-5"
+     > <div className="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between"> <div className="min-w-0"> <div className="flex flex-wrap items-center gap-3"> <h3 className="font-semibold text-[#171717]">
+{reservation.name} </h3>
+
+            <span className="border border-black/10 bg-white px-2.5 py-1 text-xs font-semibold">
+              #{reservation.id}
+            </span>
+
+            <span className="border border-[#9b2936]/20 bg-[#9b2936]/10 px-2.5 py-1 text-xs font-semibold text-[#9b2936]">
+              {reservation.status}
+            </span>
+          </div>
+
+          <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+            <div>
+              <span className="text-black/40">Meat</span>
+              <p className="mt-0.5 font-semibold">
+                {reservation.meat}
+              </p>
+            </div>
+
+            <div>
+              <span className="text-black/40">Share</span>
+              <p className="mt-0.5 font-semibold">
+                {reservation.share}
+              </p>
+            </div>
+
+            <div>
+              <span className="text-black/40">Quantity</span>
+              <p className="mt-0.5 font-semibold">
+                {reservation.quantity}
+              </p>
+            </div>
+
+            <div>
+              <span className="text-black/40">Method</span>
+              <p className="mt-0.5 font-semibold">
+                {reservation.method}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-5 flex flex-col gap-2 text-sm text-black/60 sm:flex-row sm:flex-wrap sm:gap-5">
+            <a
+              href={`tel:${reservation.phone}`}
+              className="inline-flex items-center gap-2 font-semibold text-[#171717] hover:text-[#9b2936]"
+            >
+              <Phone size={15} />
+              {reservation.phone}
+            </a>
+
+            {reservation.method === "Delivery" &&
+              reservation.address && (
+                <span className="inline-flex items-start gap-2">
+                  <MapPin
+                    size={15}
+                    className="mt-0.5 shrink-0"
+                  />
+                  {reservation.address}
+                </span>
+              )}
+          </div>
+
+          {reservation.note && (
+            <div className="mt-4 border-l-2 border-[#9b2936] pl-3 text-sm leading-6 text-black/55">
+              {reservation.note}
+            </div>
+          )}
+        </div>
+
+        <div className="w-full shrink-0 lg:w-48">
+          <label className="mb-2 block text-xs font-semibold uppercase tracking-[0.15em] text-black/40">
+            Update status
+          </label>
+
+          <select
+            value={reservation.status}
+            disabled={reservationUpdating === reservation.id}
+            onChange={(event) =>
+              updateReservationStatus(
+                reservation.id,
+                event.target.value
+              )
+            }
+            className="w-full border border-black/15 bg-white px-3 py-3 text-sm font-semibold outline-none focus:border-[#9b2936]"
+          >
+            {[
+              "Pending",
+              "Confirmed",
+              "Preparing",
+              "Ready",
+              "Dispatched",
+              "Completed",
+              "Cancelled",
+            ].map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
+
+          {reservationUpdating === reservation.id && (
+            <p className="mt-2 text-xs text-black/40">
+              Updating...
+            </p>
+          )}
+        </div>
+      </div>
+    </article>
+  ))}
+</div>
+
+)}
+
+</section>
+
 
         {/* ANNOUNCEMENT */}
         <section className="mt-6 border border-[#171717]/10 bg-white p-6 sm:p-8">

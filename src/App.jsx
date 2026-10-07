@@ -13,6 +13,7 @@ import Gallery from "./components/Gallery";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
+import Reservation from "./components/Reservation";
 
 import logo from "./assets/halal-meathub-logo.png";
 
@@ -54,6 +55,7 @@ function App() {
       <main>
         <Hero />
         <TodayAtHub />
+        <Reservation />
         <Stats />
         <MeatShowcase />
         <About />
