@@ -18,7 +18,17 @@ load_dotenv()
 
 
 app = Flask(__name__)
-CORS(app)
+
+CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": [
+                "https://halal-meathub.vercel.app",
+            ]
+        }
+    },
+)
 
 
 # -----------------------------
