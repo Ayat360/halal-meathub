@@ -20,15 +20,18 @@ load_dotenv()
 app = Flask(__name__)
 
 CORS(
-    app,
-    resources={
-        r"/api/*": {
-            "origins": [
-                "https://halal-meathub.vercel.app",
-            ]
-        }
-    },
+app,
+resources={
+r"/api/*": {
+"origins": [
+"http://localhost:5173",
+"http://127.0.0.1:5173",
+"https://halal-meathub.vercel.app",
+]
+}
+},
 )
+
 
 
 # -----------------------------
@@ -82,6 +85,24 @@ def create_database():
             CREATE TABLE IF NOT EXISTS sharing (
                 id INTEGER PRIMARY KEY,
                 data JSONB NOT NULL
+            )
+            """
+        )
+
+        connection.execute(
+            """
+            CREATE TABLE IF NOT EXISTS reservations (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(120) NOT NULL,
+                phone VARCHAR(40) NOT NULL,
+                meat VARCHAR(30) NOT NULL,
+                share VARCHAR(100) NOT NULL,
+                quantity INTEGER NOT NULL DEFAULT 1,
+                method VARCHAR(30) NOT NULL,
+                address TEXT,
+                note TEXT,
+                status VARCHAR(30) NOT NULL DEFAULT 'Pending',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             """
         )
@@ -196,6 +217,192 @@ def get_sharing():
     finally:
         connection.close()
 
+# -----------------------------
+# Customer reservations
+# -----------------------------
+
+@app.post("/api/reservations")
+def create_reservation():
+    data = request.get_json() or {}
+
+    required_fields = [
+        "name",
+        "phone",
+        "meat",
+        "share",
+        "quantity",
+        "method",
+    ]
+
+    for field in required_fields:
+        if not data.get(field):
+            return jsonify({
+                "message": f"{field} is required."
+            }), 400
+
+    if data["method"] == "Delivery" and not data.get("address"):
+        return jsonify({
+            "message": "Delivery address is required."
+        }), 400
+
+    try:
+        quantity = int(data["quantity"])
+
+        if quantity < 1:
+            raise ValueError
+
+    except (TypeError, ValueError):
+        return jsonify({
+            "message": "Quantity must be at least 1."
+        }), 400
+
+    connection = get_db()
+
+    try:
+        row = connection.execute(
+            """
+            INSERT INTO reservations (
+                name,
+                phone,
+                meat,
+                share,
+                quantity,
+                method,
+                address,
+                note
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            RETURNING id
+            """,
+            (
+                data["name"].strip(),
+                data["phone"].strip(),
+                data["meat"],
+                data["share"],
+                quantity,
+                data["method"],
+                data.get("address", "").strip(),
+                data.get("note", "").strip(),
+            ),
+        ).fetchone()
+
+        connection.commit()
+
+        return jsonify({
+            "message": "Reservation received successfully.",
+            "reservation_id": row["id"],
+        }), 201
+
+    finally:
+        connection.close()
+
+# -----------------------------
+# Admin reservations
+# -----------------------------
+
+@app.get("/api/admin/reservations")
+@jwt_required()
+def get_reservations():
+    connection = get_db()
+
+    try:
+        rows = connection.execute(
+            """
+            SELECT
+                id,
+                name,
+                phone,
+                meat,
+                share,
+                quantity,
+                method,
+                address,
+                note,
+                status,
+                created_at
+            FROM reservations
+            ORDER BY created_at DESC
+            """
+        ).fetchall()
+
+        reservations = []
+
+        for row in rows:
+            reservations.append({
+                "id": row["id"],
+                "name": row["name"],
+                "phone": row["phone"],
+                "meat": row["meat"],
+                "share": row["share"],
+                "quantity": row["quantity"],
+                "method": row["method"],
+                "address": row["address"],
+                "note": row["note"],
+                "status": row["status"],
+                "created_at": (
+                    row["created_at"].isoformat()
+                    if row["created_at"]
+                    else None
+                ),
+            })
+
+        return jsonify(reservations), 200
+
+    finally:
+        connection.close()
+
+
+# -----------------------------
+# Update reservation status
+# -----------------------------
+
+@app.put("/api/admin/reservations/<int:reservation_id>")
+@jwt_required()
+def update_reservation(reservation_id):
+    data = request.get_json() or {}
+    status = data.get("status")
+
+    allowed_statuses = [
+        "Pending",
+        "Confirmed",
+        "Preparing",
+        "Ready",
+        "Dispatched",
+        "Completed",
+        "Cancelled",
+    ]
+
+    if status not in allowed_statuses:
+        return jsonify({
+            "message": "Invalid reservation status."
+        }), 400
+
+    connection = get_db()
+
+    try:
+        row = connection.execute(
+            """
+            UPDATE reservations
+            SET status = %s
+            WHERE id = %s
+            RETURNING id
+            """,
+            (status, reservation_id),
+        ).fetchone()
+
+        connection.commit()
+
+        if not row:
+            return jsonify({
+                "message": "Reservation not found."
+            }), 404
+
+        return jsonify({
+            "message": "Reservation updated successfully."
+        }), 200
+
+    finally:
+        connection.close()
 
 # -----------------------------
 # Update sharing data
