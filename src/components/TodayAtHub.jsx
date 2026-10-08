@@ -10,7 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const API_URL = "http://localhost:5000/api/sharing";
+const API_URL = `${import.meta.env.VITE_API_URL}/api/sharing`;
 
 function getStatusStyle(status, available) {
   if (!available) {
